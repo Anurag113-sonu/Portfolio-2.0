@@ -275,3 +275,30 @@ animatedElements.forEach(element => {
     element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
     revealObserver.observe(element);
 });
+const themeButton = document.getElementById('themeButton');
+const body = document.body;
+
+// Load saved theme OR follow system default
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  body.classList.toggle('dark-theme', savedTheme === 'dark');
+  themeButton.innerHTML = savedTheme === 'dark'
+    ? '<i class="fas fa-sun"></i>'
+    : '<i class="fas fa-moon"></i>';
+} else {
+  // System default
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    body.classList.add('dark-theme');
+    themeButton.innerHTML = '<i class="fas fa-sun"></i>';
+  }
+}
+
+// Toggle on click
+themeButton.addEventListener('click', () => {
+  body.classList.toggle('dark-theme');
+  const isDark = body.classList.contains('dark-theme');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  themeButton.innerHTML = isDark
+    ? '<i class="fas fa-sun"></i>'
+    : '<i class="fas fa-moon"></i>';
+});

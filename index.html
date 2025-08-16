@@ -8,9 +8,9 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
+
     <link href="styles.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="./src/favicon.ico" />
-   
   </head>
   <body>
     <!-- Navigation -->
@@ -20,6 +20,13 @@
           <a href="#home">Anurag</a>
         </div>
         <ul class="nav-menu">
+          <li>
+            <div class="theme-toggle">
+              <button id="themeButton" aria-label="Toggle Theme">
+                <i class="fas fa-moon"></i>
+              </button>
+            </div>
+          </li>
           <li><a href="#home" class="nav-link">Home</a></li>
           <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="#skills" class="nav-link">Skills</a></li>
@@ -456,7 +463,7 @@
     </footer>
 
     <script src="script.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
       (function () {
         emailjs.init({ publicKey: "mhBCW_V1n3HiKDZYP" });
