@@ -108,26 +108,35 @@ function addFadeInAnimations() {
 
 // Contact form handling
 const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData);
-        
-        // Show success message (in a real application, you would send this to a server)
-        showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-        
-        // Reset form
-        contactForm.reset();
-        
-        // Remove focus from form elements
-        const formInputs = contactForm.querySelectorAll('input, textarea');
-        formInputs.forEach(input => input.blur());
-    });
-}
 
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalHTML = submitBtn.innerHTML;
+
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+    const serviceID = 'service_3dnvv46';   // from EmailJS
+    const templateID = 'template_vwoizmi'; // from EmailJS
+
+    try {
+      await emailjs.sendForm(serviceID, templateID, '#contactForm');
+
+      showNotification("Message sent successfully! I'll get back to you soon.", 'success');
+      contactForm.reset();
+    } catch (err) {
+      console.error(err);
+      showNotification('Failed to send. Please try again later.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHTML;
+    }
+  });
+}
 // Notification system
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
